@@ -2,7 +2,7 @@ import { Eventing } from './Eventing';
 import { Sync } from './Sync';
 
 interface UserProps {
-  id?: number;
+  id: number;
   name?: string;
   age?: number;
 }
