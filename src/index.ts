@@ -2,13 +2,6 @@ import { User } from './models/User';
 
 const user = new User({ name: 'new record', age: 0 });
 
-class Person {
-  constructor(public firstName: string, public lastName: string) { }
-
-  fullName(): string {
-    return `${this.firstName} ${this.lastName}`
-  }
-}
-
-const person = new Person('firstname', 'lastname');
-console.log(person.fullName());
+user.on('change', () => {
+  console.log('user was changed');
+});
