@@ -1,17 +1,11 @@
-import { User, UserProps } from './User';
-
 export class Attributes<T> {
   constructor(private data: T) { }
 
-  get(propName: string): string | number | boolean {
-    return this.data[propName];
+  get<K extends keyof T>(key: K): T[K] {
+    return this.data[key];
   }
 
   set(update: T): void {
     Object.assign(this.data, update);
   }
 }
-
-const attrs = new Attributes<UserProps>({ id: 5, name: 'adsf', age: 20 });
-
-const id = attrs.get('id') as number;

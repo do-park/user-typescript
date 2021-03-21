@@ -117,7 +117,34 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"src/models/Eventing.ts":[function(require,module,exports) {
+})({"src/models/Attributes.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Attributes = void 0;
+
+var Attributes =
+/** @class */
+function () {
+  function Attributes(data) {
+    this.data = data;
+  }
+
+  Attributes.prototype.get = function (key) {
+    return this.data[key];
+  };
+
+  Attributes.prototype.set = function (update) {
+    Object.assign(this.data, update);
+  };
+
+  return Attributes;
+}();
+
+exports.Attributes = Attributes;
+},{}],"src/models/Eventing.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2003,6 +2030,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.User = void 0;
 
+var Attributes_1 = require("./Attributes");
+
 var Eventing_1 = require("./Eventing");
 
 var Sync_1 = require("./Sync");
@@ -2012,16 +2041,17 @@ var rootUrl = 'http://localhost:3000/users';
 var User =
 /** @class */
 function () {
-  function User() {
+  function User(attrs) {
     this.events = new Eventing_1.Eventing();
     this.sync = new Sync_1.Sync(rootUrl);
+    this.attributes = new Attributes_1.Attributes(attrs);
   }
 
   return User;
 }();
 
 exports.User = User;
-},{"./Eventing":"src/models/Eventing.ts","./Sync":"src/models/Sync.ts"}],"src/index.ts":[function(require,module,exports) {
+},{"./Attributes":"src/models/Attributes.ts","./Eventing":"src/models/Eventing.ts","./Sync":"src/models/Sync.ts"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2031,16 +2061,27 @@ Object.defineProperty(exports, "__esModule", {
 var User_1 = require("./models/User");
 
 var user = new User_1.User({
-  id: 1
+  name: 'new record',
+  age: 0
 });
-user.set({
-  name: 'newName',
-  age: 9999
-});
-user.events.on('change', function () {
-  console.log('change!');
-});
-user.events.trigger('change');
+
+var Person =
+/** @class */
+function () {
+  function Person(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  Person.prototype.fullName = function () {
+    return this.firstName + " " + this.lastName;
+  };
+
+  return Person;
+}();
+
+var person = new Person('firstname', 'lastname');
+console.log(person.fullName());
 },{"./models/User":"src/models/User.ts"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

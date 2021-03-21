@@ -1,11 +1,14 @@
 import { User } from './models/User';
 
-const user = new User({ id: 1 });
+const user = new User({ name: 'new record', age: 0 });
 
-user.set({ name: 'newName', age: 9999 });
+class Person {
+  constructor(public firstName: string, public lastName: string) { }
 
-user.events.on('change', () => {
-  console.log('change!');
-});
+  fullName(): string {
+    return `${this.firstName} ${this.lastName}`
+  }
+}
 
-user.events.trigger('change');
+const person = new Person('firstname', 'lastname');
+console.log(person.fullName());
