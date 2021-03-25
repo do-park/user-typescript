@@ -1,12 +1,31 @@
 export class UserForm {
-  parent: Element
+  constructor(public parent: Element) { }
+
+  eventsMap() {
+    return {
+      'click: button': this.onButtonClick
+    };
+  }
+
+  onButtonClick(): void {
+    console.log('Hi there');
+  }
 
   template(): string {
     return `
       <div>
         <h1>User Form</h1>
         <input />
+        <button>Click Me</button>
       </div>
     `;
   }
+
+  render(): void {
+    const templateElement = document.createElement('template');
+    templateElement.innerHTML = this.template();
+
+    this.parent.append(templateElement.content);
+  }
 }
+
