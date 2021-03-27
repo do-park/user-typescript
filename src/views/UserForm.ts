@@ -14,7 +14,7 @@ export class UserForm {
   eventsMap() {
     return {
       'click:.set-age': this.onSetAgeClick,
-      'click: set-name': this.onSetNameClick
+      'click:.set-name': this.onSetNameClick
     };
   }
 
